@@ -49,3 +49,8 @@ Docker-compose
           - HOSTNAME="sub.example.com"
           - DETECTIP=1
           - INTERVAL=10
+        healthcheck:
+          test: ["CMD", "/usr/bin/healthcheck"]
+          interval: 30s
+          timeout: 10s
+          retries: 5
