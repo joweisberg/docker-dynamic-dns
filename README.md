@@ -3,6 +3,8 @@ Docker Dynamic DNS to use Google Domains, DuckDNS, DynDNS, FreeDNS.afraid and NO
 
 Dynamic DNS services have been around since the early days of the internet. Generally speaking, internet service providers (ISP's) will reassign an IP address to a subscriber after some period of time or if the user reconnects his or her connection.
 
+Clone with more services from: https://hub.docker.com/r/blaize/docker-dynamic-dns/
+
 The environmental variables are as follows:
 * `USER`: the username for the service.
 * `PASSWORD`: the password or token for the service.
