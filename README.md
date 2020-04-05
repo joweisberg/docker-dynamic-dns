@@ -32,7 +32,7 @@ Run the container in *console mode* (notice the environment variable setting par
 $ docker run -d --restart="unless-stopped" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns
 ```
 
-### Docker-compose
+### Docker Compose
 
 ```yml
 version: "3.5"
