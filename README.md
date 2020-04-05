@@ -1,9 +1,8 @@
-Docker Dynamic DNS to use Google Domains, DuckDNS, DynDNS, FreeDNS.afraid and NO-IP
-============
+# Docker Dynamic DNS to use Google Domains, DuckDNS, DynDNS, FreeDNS.afraid and NO-IP
 
 Dynamic DNS services have been around since the early days of the internet. Generally speaking, internet service providers (ISP's) will reassign an IP address to a subscriber after some period of time or if the user reconnects his or her connection.
 
-Clone with more services from: https://hub.docker.com/r/blaize/docker-dynamic-dns/
+This is a fork of [blaize/docker-dynamic-dns](https://hub.docker.com/r/blaize/docker-dynamic-dns/)
 
 The environmental variables are as follows:
 * `USER`: the username for the service.
@@ -15,42 +14,43 @@ The environmental variables are as follows:
 * `UPDATEIPV6`: If this is set to 1, then the script will detect the external IPv6 address of the service on which the container is running.
 * `INTERVAL`: How often the script should call the update services in minutes.
 
-Installation via Docker
-============
+## Installation via Docker
 
 Please follow the official documentation:
 
     https://docs.docker.com/install/
 
-Docker
----------------------
+### Docker
 
 Get the container:
-
-    docker pull joweisberg/dynamic-dns
+```bash
+$ docker pull joweisberg/dynamic-dns
+```
 
 Run the container in *console mode* (notice the environment variable setting parameters for the startup command):
+```bash
+$ docker run -d --restart="unless-stopped" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns
+```
 
-    docker run -d --restart="unless-stopped" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns
+### Docker-compose
 
-Docker-compose
----------------------
-
-    version: "3.5"
-    services:
-      dynamic-dns:
-        container_name: dynamic-dns
-        image: joweisberg/dynamic-dns:latest
-        restart: unless-stopped
-        environment:
-          - USER="username"
-          - PASSWORD="password"
-          - SERVICE=freedns
-          - HOSTNAME="sub.example.com"
-          - DETECTIP=1
-          - INTERVAL=10
-        healthcheck:
-          test: ["CMD", "/usr/bin/healthcheck"]
-          interval: 30s
-          timeout: 10s
-          retries: 5
+```yml
+version: "3.5"
+services:
+  dynamic-dns:
+    container_name: dynamic-dns
+    image: joweisberg/dynamic-dns:latest
+    restart: unless-stopped
+    environment:
+      - USER="username"
+      - PASSWORD="password"
+      - SERVICE=freedns
+      - HOSTNAME="sub.example.com"
+      - DETECTIP=1
+      - INTERVAL=10
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+```
