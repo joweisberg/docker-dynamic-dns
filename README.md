@@ -20,22 +20,24 @@ Please follow the official documentation:
 
     https://docs.docker.com/install/
 
-### Docker image platform
+### Docker image platform / architecture
 
-This Docker image uses the correct latest version!
-- ``aarch64`` (Rapsberry Pi 4 B w/ Ubuntu 18.04 LTS, Docker 19.03) -- image: joweisberg/dynamic-dns:arm64
-- ``amd64`` (Linux Ubuntu 18.04 LTS, Docker 19.03) -- image: joweisberg/dynamic-dns:latest
+The Docker image to use `joweisberg/dynamic-dns:latest`.
+Build on Linux Ubuntu 18.04 LTS, Docker 19.03 for:
+- `x86_64` / `amd64`
+- `aarch64` / `arm64v8`
+- `arm` / `arm32v6`
 
 ### Docker
 
 Get the container:
 ```bash
-$ docker pull joweisberg/dynamic-dns
+$ docker pull joweisberg/dynamic-dns:latest
 ```
 
 Run the container in *console mode* (notice the environment variable setting parameters for the startup command):
 ```bash
-$ docker run -d --restart="unless-stopped" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns
+$ docker run -d --restart="unless-stopped" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns:latest
 ```
 
 ### Docker Compose
