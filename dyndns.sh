@@ -74,7 +74,7 @@ while :; do
 
 
   echo "curl -H \"$USERAGENT\" -H \"$AUTHHEADER\" $NOIPURL"
-  RESULT=$(curl -sS -H "$USERAGENT" -H "$AUTHHEADER"' $NOIPURL)
+  RESULT=$(curl -sS -H "$USERAGENT" -H "$AUTHHEADER" $NOIPURL)
   echo $RESULT
   if [ $INTERVAL -eq 0 ]; then
     break
