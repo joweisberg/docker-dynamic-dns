@@ -52,8 +52,7 @@ while :; do
   
 
   USERAGENT="User-Agent: no-ip shell script/1.0 mail@mail.com"
-  BASE64AUTH=$(echo -n '"$USER:$PASSWORD"' | base64)
-  AUTHHEADER="Authorization: Basic $BASE64AUTH"
+  AUTHHEADER="Authorization: Basic $(echo -n "$USER:$PASSWORD" | base64)"
   
   NOIPURL="https://$USER:$PASSWORD@$SERVICEURL"
   NOIPURL="https://$SERVICEURL"
@@ -74,8 +73,8 @@ while :; do
   fi
 
 
-  echo "$AUTHHEADER $USERAGENT $NOIPURL"
-  RESULT=$(curl -H "$AUTHHEADER" -H "$USERAGENT" $NOIPURL)
+  echo "curl -H \"$USERAGENT\" -H \"$AUTHHEADER\" $NOIPURL"
+  RESULT=$(curl -sS -H "$USERAGENT" -H "$AUTHHEADER"' $NOIPURL)
   echo $RESULT
   if [ $INTERVAL -eq 0 ]; then
     break
