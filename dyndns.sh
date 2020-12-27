@@ -51,11 +51,12 @@ while :; do
   esac
   
 
-  USERAGENT="--user-agent=\"no-ip shell script/1.0 mail@mail.com\""
-  BASE64AUTH=$(echo '"$USER:$PASSWORD"' | base64)
-  AUTHHEADER="--header=\"Authorization: $BASE64AUTH\""
+  USERAGENT="User-Agent: no-ip shell script/1.0 mail@mail.com"
+  BASE64AUTH=$(echo -n '"$USER:$PASSWORD"' | base64)
+  AUTHHEADER="Authorization: Basic $BASE64AUTH"
   
   NOIPURL="https://$USER:$PASSWORD@$SERVICEURL"
+  NOIPURL="https://$SERVICEURL"
   if [ -n "$IP" ] || [ -n "$HOSTNAME" ]; then
     NOIPURL="$NOIPURL?"
   fi
@@ -74,7 +75,7 @@ while :; do
 
 
   echo "$AUTHHEADER $USERAGENT $NOIPURL"
-  RESULT=$(wget --no-check-certificate -qO- $AUTHHEADER $USERAGENT $NOIPURL)
+  RESULT=$(curl -H "$AUTHHEADER" -H "$USERAGENT" $NOIPURL)
   echo $RESULT
   if [ $INTERVAL -eq 0 ]; then
     break
