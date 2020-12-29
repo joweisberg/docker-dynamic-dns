@@ -1,6 +1,7 @@
 #!/bin/bash
 
-while :; do
+while true; do
+
   if [ -z "$USER" ]; then
     echo "No user was set. Use -u=username"
     exit 10
@@ -73,7 +74,7 @@ while :; do
   fi
 
 
-  echo "curl -H \"$USERAGENT\" -H \"$AUTHHEADER\" $NOIPURL"
+  echo "[$(date +'%Y-%m-%d %H:%M:%S')] curl -H \"$USERAGENT\" -H \"$AUTHHEADER\" $NOIPURL"
   RESULT=$(curl -sS -H "$USERAGENT" -H "$AUTHHEADER" $NOIPURL)
   echo $RESULT
   if [ $INTERVAL -eq 0 ]; then

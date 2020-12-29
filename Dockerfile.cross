@@ -2,10 +2,7 @@ FROM __BASEIMAGE_ARCH__/alpine
 MAINTAINER Jonathan Weisberg <jo.weisberg@gmail.com>
 
 __CROSS_COPY qemu-__QEMU_ARCH__-static /usr/bin
-RUN apk --no-cache --update add \
-    bash \
-    openssl \
-    jq
+RUN apk --no-cache --update add bash curl
 
 WORKDIR /root
 
