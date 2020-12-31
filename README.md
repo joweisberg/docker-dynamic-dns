@@ -5,7 +5,7 @@ Dynamic DNS services have been around since the early days of the internet. Gene
 This is a fork of [blaize/docker-dynamic-dns](https://hub.docker.com/r/blaize/docker-dynamic-dns/)
 
 The environmental variables are as follows:
-* `TZ` - name of the TimeZone - ie. "Etc/UTC" or "Europe/Paris" (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+* `TZ`: name of the TimeZone - ie. "Etc/UTC" or "Europe/Paris" (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 * `USER`: the username for the service.
 * `PASSWORD`: the password or token for the service.
 * `SERVICE`: The service you are using. Currently, the script is setup to use Google Domains (google), DuckDNS (duckdns), DynDNS (dyndns), FreeDNS.afraid.org (freedns) and NO-IP (noip). Set the service to the value in parenthesis.
