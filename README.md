@@ -5,6 +5,7 @@ Dynamic DNS services have been around since the early days of the internet. Gene
 This is a fork of [blaize/docker-dynamic-dns](https://hub.docker.com/r/blaize/docker-dynamic-dns/)
 
 The environmental variables are as follows:
+* `TZ` - name of the TimeZone - ie. "Etc/UTC" or "Europe/Paris" (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 * `USER`: the username for the service.
 * `PASSWORD`: the password or token for the service.
 * `SERVICE`: The service you are using. Currently, the script is setup to use Google Domains (google), DuckDNS (duckdns), DynDNS (dyndns), FreeDNS.afraid.org (freedns) and NO-IP (noip). Set the service to the value in parenthesis.
@@ -23,10 +24,10 @@ Please follow the official documentation:
 ### Docker image platform / architecture
 
 The Docker image to use `joweisberg/dynamic-dns:latest`.
-Build on Linux Ubuntu 18.04 LTS, Docker 19.03 for:
+Build on Linux Ubuntu 20.04 LTS, Docker 19.03 for:
 - `x86_64` / `amd64`
 - `aarch64` / `arm64v8`
-- `arm` / `arm32v7`
+- `arm` / `arm32v6`
 
 ### Docker
 
@@ -37,7 +38,7 @@ $ docker pull joweisberg/dynamic-dns:latest
 
 Run the container in *console mode* (notice the environment variable setting parameters for the startup command):
 ```bash
-$ docker run -d --restart="unless-stopped" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns:latest
+$ docker run -d --restart="unless-stopped" -e TZ="Europe/Paris" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns:latest
 ```
 
 ### Docker Compose
@@ -50,6 +51,7 @@ services:
     image: joweisberg/dynamic-dns:latest
     restart: unless-stopped
     environment:
+      - TZ=Europe/Paris
       - USER="username"
       - PASSWORD="password"
       - SERVICE=freedns
