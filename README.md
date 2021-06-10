@@ -38,7 +38,7 @@ $ docker pull joweisberg/dynamic-dns:latest
 
 Run the container in *console mode* (notice the environment variable setting parameters for the startup command):
 ```bash
-$ docker run -d --restart="unless-stopped" -e TZ="Europe/Paris" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns:latest
+$ docker run -d --restart=unless-stopped -e TZ=Europe/Paris -e USER=username -e PASSWORD=password -e SERVICE=freedns -e HOSTNAME=sub.example.com -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns:latest
 ```
 
 ### Docker Compose
@@ -52,10 +52,10 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Europe/Paris
-      - USER="username"
-      - PASSWORD="password"
+      - USER=username
+      - PASSWORD=password
       - SERVICE=freedns
-      - HOSTNAME="sub.example.com"
+      - HOSTNAME=sub.example.com
       - DETECTIP=1
       - INTERVAL=10
     healthcheck:
