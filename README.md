@@ -23,22 +23,25 @@ Please follow the official documentation:
 
 ### Docker image platform / architecture
 
-The Docker image to use `joweisberg/dynamic-dns:latest`.
-Build on Linux Ubuntu 20.04 LTS, Docker 19.03 for:
-- `x86_64` / `amd64`
-- `aarch64` / `arm64v8`
-- `arm` / `arm32v6`
+The Docker image to use `joweisberg/dynamic-dns:amd64`.
+Build on Linux Ubuntu 20.04 LTS, Docker 19.03 and above for:
+
+| Platform | Architecture / Tags |
+|---|---|
+| x86_64 | amd64 |
+| aarch64 | arm64 |
+| arm | arm32 |
 
 ### Docker
 
 Get the container:
 ```bash
-$ docker pull joweisberg/dynamic-dns:latest
+$ docker pull joweisberg/dynamic-dns:amd64
 ```
 
 Run the container in *console mode* (notice the environment variable setting parameters for the startup command):
 ```bash
-$ docker run -d --restart=unless-stopped -e TZ=Europe/Paris -e USER=username -e PASSWORD=password -e SERVICE=freedns -e HOSTNAME=sub.example.com -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns:latest
+$ docker run -d --restart="unless-stopped" -e TZ="Europe/Paris" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns:amd64
 ```
 
 ### Docker Compose
@@ -48,14 +51,14 @@ version: "3.5"
 services:
   dynamic-dns:
     container_name: dynamic-dns
-    image: joweisberg/dynamic-dns:latest
+    image: joweisberg/dynamic-dns:amd64
     restart: unless-stopped
     environment:
       - TZ=Europe/Paris
-      - USER=username
-      - PASSWORD=password
+      - USER="username"
+      - PASSWORD="password"
       - SERVICE=freedns
-      - HOSTNAME=sub.example.com
+      - HOSTNAME="sub.example.com"
       - DETECTIP=1
       - INTERVAL=10
     healthcheck:
