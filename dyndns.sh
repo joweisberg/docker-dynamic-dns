@@ -2,6 +2,10 @@
 
 while true; do
 
+  if [ -z "$SERVICE" ]; then
+    echo "No service was set. Use -e=noip|dyndns|duckdns|google|freedns"
+    exit 30
+  fi
   if [ -z "$USER" ]; then
     echo "No user was set. Use -u=username"
     exit 10
@@ -30,52 +34,44 @@ while true; do
   fi
 
 
-  SERVICEURL="dynupdate.no-ip.com/nic/update"
+  AUTHTOKEN=0
   case "$SERVICE" in
     noip)
-      SERVICEURL="dynupdate.no-ip.com/nic/update"
+      SERVICEURL="dynupdate.no-ip.com/nic/update?hostname=${HOSTNAME}&myip=${IP}"
       ;;
     dyndns)
-      SERVICEURL="members.dyndns.org/v3/update"
+      SERVICEURL="members.dyndns.org/v3/update?hostname=${HOSTNAME}&myip=${IP}"
       ;;
     duckdns)
-      SERVICEURL="www.duckdns.org/v3/update"
+      AUTHTOKEN=1
+      SERVICEURL="www.duckdns.org/update?domains=${HOSTNAME}&token=${PASSWORD}&ip=${IP}"
       ;;
     google)
-      SERVICEURL="domains.google.com/nic/update"
+      SERVICEURL="domains.google.com/nic/update?hostname=${HOSTNAME}&myip=${IP}"
       ;;
     freedns)
-      SERVICEURL="freedns.afraid.org/nic/update"
+      SERVICEURL="freedns.afraid.org/nic/update?hostname=${HOSTNAME}&myip=${IP}"
       ;;
-    *)
-      SERVICEURL="dynupdate.no-ip.com/nic/update"
   esac
   
 
   USERAGENT="User-Agent: no-ip shell script/1.0 mail@mail.com"
   AUTHHEADER="Authorization: Basic $(echo -n "$USER:$PASSWORD" | base64)"
   
-  NOIPURL="https://$USER:$PASSWORD@$SERVICEURL"
-  NOIPURL="https://$SERVICEURL"
-  if [ -n "$IP" ] || [ -n "$HOSTNAME" ]; then
-    NOIPURL="$NOIPURL?"
-  fi
-  if [ -n "$HOSTNAME" ]; then
-    NOIPURL="${NOIPURL}hostname=${HOSTNAME}"
-  fi
-  if [ -n "$IP" ]; then
-    if [ -n "$HOSTNAME" ]; then
-      NOIPURL="$NOIPURL&"
-    fi
-    NOIPURL="${NOIPURL}myip=$IP"
-    if [ -n "$UPDATEIPV6" ]; then
-      NOIPURL="${NOIPURL},$IPV6&myipv6=$IPV6"
-    fi
+  URL="https://$USER:$PASSWORD@$SERVICEURL"
+  URL="https://$SERVICEURL"
+  if [ -n "$UPDATEIPV6" ]; then
+    URL="${URL},$IPV6&myipv6=$IPV6"
   fi
 
 
-  echo "[$(date +'%Y-%m-%d %H:%M:%S')] curl -H \"$USERAGENT\" -H \"$AUTHHEADER\" $NOIPURL"
-  RESULT=$(curl -sS -H "$USERAGENT" -H "$AUTHHEADER" $NOIPURL)
+  if [ $AUTHTOKEN -eq 0 ]; then
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] curl -H \"$USERAGENT\" -H \"$AUTHHEADER\" $URL"
+    RESULT=$(curl -sS -H "$USERAGENT" -H "$AUTHHEADER" $URL)
+  else
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] curl $URL"
+    RESULT=$(curl -sS $URL)
+  fi
   echo $RESULT
   if [ $INTERVAL -eq 0 ]; then
     break
