@@ -64,10 +64,10 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Europe/Paris
-      - USER="username"
-      - PASSWORD="password"
+      - USER=username
+      - PASSWORD=password
       - SERVICE=freedns
-      - HOSTNAME="sub.example.com"
+      - HOSTNAME=sub.example.com
       - DETECTIP=1
       - INTERVAL=10
     healthcheck:
