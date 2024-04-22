@@ -45,6 +45,7 @@ while true; do
     duckdns)
       AUTHTOKEN=1
       SERVICEURL="www.duckdns.org/update?domains=${HOSTNAME}&token=${PASSWORD}&ip=${IP}"
+      SERVICEURL_V6="www.duckdns.org/update?domains=${HOSTNAME}&token=${PASSWORD}&ip=${IP}&ipv6=${IPV6}"
       ;;
     google)
       SERVICEURL="domains.google.com/nic/update?hostname=${HOSTNAME}&myip=${IP}"
@@ -61,7 +62,11 @@ while true; do
   URL="https://$USER:$PASSWORD@$SERVICEURL"
   URL="https://$SERVICEURL"
   if [ -n "$UPDATEIPV6" ]; then
-    URL="${URL},$IPV6&myipv6=$IPV6"
+    if [ -n "$SERVICEURL_V6" ]; then
+        URL="https://$SERVICEURL_V6"
+    else
+      URL="${URL},$IPV6&myipv6=$IPV6"
+    fi
   fi
 
 
