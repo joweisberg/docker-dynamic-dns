@@ -38,6 +38,7 @@ while true; do
   case "$SERVICE" in
     noip)
       SERVICEURL="dynupdate.no-ip.com/nic/update?hostname=${HOSTNAME}&myip=${IP}"
+      URL="https://$USER:$PASSWORD@$SERVICEURL"
       ;;
     dyndns)
       SERVICEURL="members.dyndns.org/v3/update?hostname=${HOSTNAME}&myip=${IP}"
@@ -62,13 +63,12 @@ while true; do
   USERAGENT="User-Agent: no-ip shell script/1.0 mail@mail.com"
   AUTHHEADER="Authorization: Basic $(echo -n "$USER:$PASSWORD" | base64)"
   
-  URL="https://$USER:$PASSWORD@$SERVICEURL"
-  URL="https://$SERVICEURL"
+  [ -n "$URL" ] && URL="https://$SERVICEURL"
   if [ -n "$UPDATEIPV6" ]; then
     if [ -n "$SERVICEURL_V6" ]; then
-        URL="https://$SERVICEURL_V6"
+      URL="https://$SERVICEURL_V6"
     else
-      URL="${URL},$IPV6&myipv6=$IPV6"
+      URL="${URL}&myipv6=$IPV6"
     fi
   fi
 
