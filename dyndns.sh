@@ -3,7 +3,7 @@
 while true; do
 
   if [ -z "$SERVICE" ]; then
-    echo "No service was set. Use -e=noip|dyndns|duckdns|google|freedns"
+    echo "No service was set. Use -e=noip|dyndns|duckdns|google|freedns|ovh"
     exit 30
   fi
   if [ -z "$USER" ]; then
@@ -52,6 +52,9 @@ while true; do
       ;;
     freedns)
       SERVICEURL="freedns.afraid.org/nic/update?hostname=${HOSTNAME}&myip=${IP}"
+      ;;
+    ovh)
+      SERVICEURL="www.ovh.com/nic/update?system=dyndns&hostname=${HOSTNAME}&myip=${IP}"
       ;;
   esac
   
