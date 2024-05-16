@@ -1,13 +1,13 @@
 # docker-dynamic-dns
 
-This is a fork of [blaize/docker-dynamic-dns](https://github.com/theonemule/docker-dynamic-dns/) to extend for FreeDNS.afraid.org (freedns) service
+This is a fork of [blaize/docker-dynamic-dns](https://github.com/theonemule/docker-dynamic-dns/) to extend for FreeDNS.afraid.org (freedns) and OVH service
 
 This project:
 
 - GitHub [joweisberg/docker-dynamic-dns](https://github.com/joweisberg/docker-dynamic-dns/)
 - Docker Hub [joweisberg/dynamic-dns](https://hub.docker.com/r/joweisberg/dynamic-dns/)
 
-# Docker Dynamic DNS to use Google Domains, DuckDNS, DynDNS, FreeDNS.afraid NO-IP and OVH
+# Docker Dynamic DNS to use Google Domains, DuckDNS, DynDNS, FreeDNS.afraid, NO-IP and OVH
 
 Dynamic DNS services have been around since the early days of the internet. Generally speaking, internet service providers (ISP's) will reassign an IP address to a subscriber after some period of time or if the user reconnects his or her connection.
 
@@ -72,8 +72,8 @@ services:
       - DETECTIP=1
       - INTERVAL=10
     healthcheck:
-      test: ['CMD', '/usr/bin/healthcheck']
-      interval: 30s
-      timeout: 10s
+      test: /usr/bin/healthcheck
+      interval: 10s
+      timeout: 5s
       retries: 5
 ```
