@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Default variable values
+# I need to detect IP change
+DETECTIP=${DETECTIP:-1}
+# Wait for 10 min before each detection
+INTERVAL=${INTERVAL:-10}
+
 while true; do
 
   if [ -z "$SERVICE" ]; then
@@ -63,7 +69,8 @@ while true; do
   USERAGENT="User-Agent: no-ip shell script/1.0 mail@mail.com"
   AUTHHEADER="Authorization: Basic $(echo -n "$USER:$PASSWORD" | base64)"
   
-  [ -n "$URL" ] && URL="https://$SERVICEURL"
+  [ -z "$URL" ] && URL="https://$SERVICEURL"
+  
   if [ -n "$UPDATEIPV6" ]; then
     if [ -n "$SERVICEURL_V6" ]; then
       URL="https://$SERVICEURL_V6"
