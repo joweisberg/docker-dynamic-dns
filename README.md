@@ -14,14 +14,14 @@ Dynamic DNS services have been around since the early days of the internet. Gene
 The environmental variables are as follows:
 
 - `TZ`: name of the TimeZone - ie. "Etc/UTC" or "Europe/Paris" (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+- `SERVICE`: The service you are using. Currently, the script is setup to use Google Domains (google), DuckDNS (duckdns), DynDNS (dyndns), FreeDNS.afraid.org (freedns), NO-IP (noip) and OVH DynHosts (ovh). Set the service to the value in parenthesis.
 - `USER`: the username for the service.
 - `PASSWORD`: the password or token for the service.
-- `SERVICE`: The service you are using. Currently, the script is setup to use Google Domains (google), DuckDNS (duckdns), DynDNS (dyndns), FreeDNS.afraid.org (freedns), NO-IP (noip) and OVH DynHosts (ovh). Set the service to the value in parenthesis.
 - `HOSTNAME`: The host name that you are updating. ie. example.com
 - `DETECTIP`: If this is set to 1, then the script will detect the external IP of the service on which the container is running, such as the external IP of your DSL or cable modem.
-- `IP`: if DETECTIP is not set, you can specify an IP address.
+- `IP`: if DETECTIP is not set, you can specify an IP address. Default value is 1.
 - `UPDATEIPV6`: If this is set to 1, then the script will detect the external IPv6 address of the service on which the container is running.
-- `INTERVAL`: How often the script should call the update services in minutes.
+- `INTERVAL`: How often the script should call the update services in minutes. Default value is 10 minutes.
 
 ## Installation via Docker
 
@@ -51,7 +51,7 @@ $ docker pull joweisberg/dynamic-dns:latest
 ### Run the container in _console mode_ (notice the environment variable setting parameters for the startup command)
 
 ```bash
-$ docker run -d --restart="unless-stopped" -e TZ="Europe/Paris" -e USER="username" -e PASSWORD="password" -e SERVICE="freedns" -e HOSTNAME="sub.example.com" -e DETECTIP=1 -e INTERVAL=10 joweisberg/dynamic-dns:latest
+$ docker run -d --restart="unless-stopped" -e TZ="Europe/Paris" -e SERVICE="freedns" -e USER="username" -e PASSWORD="password" -e HOSTNAME="sub.example.com" joweisberg/dynamic-dns:latest
 ```
 
 ### Run the container via docker-compose
@@ -65,12 +65,10 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Europe/Paris
+      - SERVICE=freedns
       - USER="username"
       - PASSWORD="password"
-      - SERVICE=freedns
       - HOSTNAME="sub.example.com"
-      - DETECTIP=1
-      - INTERVAL=10
     healthcheck:
       test: /usr/bin/healthcheck
       interval: 10s
