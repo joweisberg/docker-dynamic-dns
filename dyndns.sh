@@ -9,19 +9,19 @@ INTERVAL=${INTERVAL:-10}
 while true; do
 
   if [ -z "$SERVICE" ]; then
-    echo "No service was set. Use -e=noip|dyndns|duckdns|google|freedns|ovh"
+    echo "No service was set. Use -e SERVICE=noip|dyndns|duckdns|google|freedns|ovh"
     exit 30
   fi
   if [ -z "$USER" ]; then
-    echo "No user was set. Use -u=username"
+    echo "No user was set. Use -e USER=username"
     exit 10
   fi
   if [ -z "$PASSWORD" ]; then
-    echo "No password was set. Use -p=password"
+    echo "No password was set. Use -e PASSWORD=password"
     exit 20
   fi
   if [ -z "$HOSTNAME" ]; then
-    echo "No host name. Use -h=host.example.com"
+    echo "No host name. Use -e HOSTNAME=host.example.com"
     exit 30
   fi
   if [ -n "$DETECTIP" ]; then
